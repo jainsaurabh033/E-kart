@@ -9,6 +9,7 @@ const fs = require("fs");
 const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
+const { isAuthenticated } = require("../middleware/auth");
 
 router.post("/create-user", upload.single("file"), async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -82,6 +83,7 @@ router.post(
       let user = await User.findOne({ email });
 
       if (user) {
+        console.log("user alreaday exist ");
         return next(new ErrorHandler("User already exists", 400));
       }
       user = await User.create({
@@ -92,6 +94,60 @@ router.post(
       });
 
       sendToken(user, 201, res);
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+//login user
+router.post(
+  "/login-user",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const { email, password } = req.body;
+
+      if (!email || !password) {
+        return next(new ErrorHandler("Please provide the all fields!", 400));
+      }
+
+      const user = await User.findOne({ email }).select("+password");
+
+      if (!user) {
+        return next(new ErrorHandler("User doesn't exists!", 400));
+      }
+
+      const isPasswordValid = await user.comparePassword(password);
+
+      if (!isPasswordValid) {
+        return next(
+          new ErrorHandler("Please provide the correct information", 400)
+        );
+      }
+
+      sendToken(user, 201, res);
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// load user
+router.get(
+  "/getuser",
+  isAuthenticated,
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user.id);
+
+      if (!user) {
+        return next(new ErrorHandler("User doesn't exists", 400));
+      }
+
+      res.status(200).json({
+        success: true,
+        user,
+      });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
     }

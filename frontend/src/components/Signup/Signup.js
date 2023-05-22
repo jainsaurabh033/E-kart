@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RxAvatar } from "react-icons/rx";
 import axios from "axios";
 import { server } from "../../server";
-//import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 const Singup = () => {
   const [email, setEmail] = useState("");
@@ -34,17 +34,14 @@ const Singup = () => {
     axios
       .post(`${server}/user/create-user`, newForm, config)
       .then((res) => {
-        alert(res.message);
-        // toast.success(res.data.message);
-        // setName("");
-        // setEmail("");
-        // setPassword("");
-        // setAvatar();
-        console.log(res);
+        toast.success(res.data.message);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setAvatar();
       })
       .catch((error) => {
-        //toast.error(error.response.data.message);
-        console.log(error);
+        toast.error(error.response.data.message);
       });
   };
 
