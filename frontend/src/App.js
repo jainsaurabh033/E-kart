@@ -18,7 +18,8 @@ import {
   ShopCreatePage,
   SellerActivationPage,
   ShopLoginPage,
-} from "./Routes.js";
+} from "./routes/Routes.js";
+import { ShopDashboardPage } from "./routes/ShopRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Store from "./redux/store";
@@ -80,6 +81,14 @@ const App = () => {
           element={
             <SellerProtectedRoute>
               <ShopHomePage />
+            </SellerProtectedRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <SellerProtectedRoute>
+              <ShopDashboardPage />
             </SellerProtectedRoute>
           }
         />
