@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { backend_url } from "../../../server";
 import styles from "../../../styles/styles";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
+import { useSelector } from "react-redux";
 
 const ProductCard = ({ data }) => {
   const [click, setClick] = useState(false);
