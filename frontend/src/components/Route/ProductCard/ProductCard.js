@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import styles from "../../../styles/styles";
 import {
   AiFillHeart,
   AiFillStar,
-  AiOutlineStar,
   AiOutlineEye,
   AiOutlineHeart,
   AiOutlineShoppingCart,
+  AiOutlineStar,
 } from "react-icons/ai";
-
+import { Link } from "react-router-dom";
+import { backend_url } from "../../../server";
+import styles from "../../../styles/styles";
 import ProductDetailsCard from "../ProductDetailsCard/ProductDetailsCard";
 
 const ProductCard = ({ data }) => {
@@ -25,7 +25,7 @@ const ProductCard = ({ data }) => {
         <div className="flex justify-end"></div>
         <Link to={`/product/${product_name}`}>
           <img
-            src={data.image_Url[0].url}
+            src={`${backend_url}${data.images && data.images[0]}`}
             alt=""
             className="w-full h-[170px] object-contain"
           />
@@ -56,12 +56,12 @@ const ProductCard = ({ data }) => {
             />
             <AiFillStar
               className="mr-2 cursor-pointer"
-              size={20}
               color="#F6BA00"
+              size={20}
             />
             <AiOutlineStar
-              className="mr-2 cursor-pointer"
               size={20}
+              className="mr-2 cursor-pointer"
               color="#F6BA00"
             />
           </div>
@@ -69,14 +69,17 @@ const ProductCard = ({ data }) => {
           <div className="py-2 flex items-center justify-between">
             <div className="flex">
               <h5 className={`${styles.productDiscountPrice}`}>
-                {data.price === 0 ? data.price : data.discount_price} rs
+                {data.originalPrice === 0
+                  ? data.originalPrice
+                  : data.discountPrice}
+                $
               </h5>
               <h4 className={`${styles.price}`}>
-                {data.price ? data.price + "$" : null}
+                {data.originalPrice ? data.originalPrice + " $" : null}
               </h4>
             </div>
             <span className="font-[400] text-[17px] text-[#68d284]">
-              {data.total_sell} sold
+              50 sold
             </span>
           </div>
         </Link>

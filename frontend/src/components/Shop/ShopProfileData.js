@@ -1,18 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-//import { getAllProductsShop } from "../../redux/actions/product";
+import { getAllProductsShop } from "../../redux/actions/product";
 import styles from "../../styles/styles";
-import { productData } from "../../static/data";
 import ProductCard from "../Route/ProductCard/ProductCard";
 
 const ShopProfileData = ({ isOwner }) => {
-  // const { products } = useSelector((state) => state.products);
-  // const { id } = useParams();
-  // const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getAllProductsShop(id));
-  // }, [dispatch]);
+  const { products } = useSelector((state) => state.products);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllProductsShop(id));
+  }, [dispatch]);
 
   const [active, setActive] = useState(1);
   return (
@@ -63,12 +62,12 @@ const ShopProfileData = ({ isOwner }) => {
 
       <br />
       <div className="grid grid-cols-1 gap-[20px] md:grid-cols-2 md:gap-[25px] lg:grid-cols-3 lg:gap-[25px] xl:grid-cols-4 xl:gap-[20px] mb-12 border-0">
-        {productData &&
-          productData.map((i, index) => (
+        {products &&
+          products.map((i, index) => (
             <ProductCard data={i} key={index} isShop={true} />
           ))}
       </div>
-      {productData && productData.length === 0 && (
+      {products && products.length === 0 && (
         <h5 className="w-full text-center py-5 text-[18px]">
           No Products have for this shop!
         </h5>
