@@ -10,7 +10,6 @@ const jwt = require("jsonwebtoken");
 const sendMail = require("../utils/sendMail");
 const sendToken = require("../utils/jwtToken");
 const { isAuthenticated, isAdmin } = require("../middleware/auth");
-const user = require("../model/user");
 
 router.post("/create-user", upload.single("file"), async (req, res, next) => {
   try {
@@ -41,7 +40,7 @@ router.post("/create-user", upload.single("file"), async (req, res, next) => {
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://shop0-54t8.vercel.app/${activationToken}`;
+    const activationUrl = `https://shop0-54t8.vercel.app/activation/${activationToken}`;
 
     try {
       await sendMail({
