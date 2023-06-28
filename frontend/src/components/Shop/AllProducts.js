@@ -95,11 +95,11 @@ const AllProducts = () => {
   products &&
     products.forEach((item) => {
       row.push({
-        id: item._id,
-        name: item.name,
-        price: "US$ " + item.discountPrice,
-        Stock: item.stock,
-        sold: 10,
+        id: item?._id,
+        name: item?.name,
+        price: "US$ " + item?.discountPrice,
+        Stock: item?.stock,
+        sold: item?.sold_out,
       });
     });
 
