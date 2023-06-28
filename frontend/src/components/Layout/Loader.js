@@ -1,5 +1,5 @@
 import React from "react";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import animationData from "../../Assets/animations/92131-ecommerce.json";
 
 const Loader = () => {

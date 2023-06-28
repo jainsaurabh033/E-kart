@@ -1,7 +1,7 @@
 import React from "react";
 import Footer from "../components/Layout/Footer";
 import Header from "../components/Layout/Header";
-import Lottie from "react-lottie";
+import Lottie from "lottie-react";
 import animationData from "../Assets/animations/107043-success";
 
 const OrderSuccessPage = () => {
