@@ -44,6 +44,7 @@ Here're some of the project's best features:
 *   Add Coupons for particular product
 *   Seller Dashboard-Create product .Create Event
 *   Realtime order status changing
+*   Realtime chat with Retailer
 
 <h2>🛠️ Installation Steps:</h2>
 
